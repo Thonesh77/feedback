@@ -18,7 +18,7 @@ textareaEl.addEventListener('input', inputHandler);
 
 // Submit handler for the form
 const submitHandler = event => {
-  event.preventDefault(); // Prevent the default form submission (page reload)
+  event.preventDefault(); // Prevent the default form submission (page reload) 
 
   const text = textareaEl.value; // Get the feedback text typed by the user
 
@@ -31,7 +31,7 @@ const submitHandler = event => {
     const daysAgo = 0; // Days since the feedback was posted (0 represents 'NEW')
 
     // Create the HTML for a new feedback item
-    const feedbackinnerhtml = `
+       const feedbackinnerhtml = `
       <li class="feedback">
           <button class="upvote">
               <i class="fa-solid fa-caret-up upvote__icon"></i>
@@ -77,3 +77,32 @@ const submitHandler = event => {
 
 // Event listener for form submission (trigger the submit handler when the form is submitted)
 formEl.addEventListener('submit', submitHandler);
+
+  fetch('https://bytegrad.com/course-assets/js/1/api/feedbacks')
+  .then(response => response.json())
+  .then(data => {
+    data.feedbacks.forEach(feedbackIteams => {
+      const feedbackIteamsHTML = `
+      <li class="feedback">
+          <button class="upvote">
+              <i class="fa-solid fa-caret-up upvote__icon"></i>
+              <span class="upvote__count">${feedbackIteams.upvotecount}</span>
+          </button>
+          <section class="feedback__badge"> 
+              <p class="feedback__letter">${feedbackIteams.badgleeter}</p> <!-- Display the first letter of the company -->
+          </section>
+          <div class="feedback__content">
+              <p class="feedback__company">${feedbackIteams.company}</p> <!-- Display the company name -->
+              <p class="feedback__text">${feedbackIteams.text}</p> <!-- Display the feedback text -->
+          </div>
+          <p class="feedback__date">${feedbackIteams.daysAgo === 0 ? 'NEW' : `${feedbackIteams.daysAgo}d`}</p> <!-- Display 'NEW' or days ago -->
+      </li>`;
+      feedbackElement1.insertAdjacentHTML('beforeend', feedbackIteamsHTML)
+
+    });
+  })
+    .catch(error => {
+      feedbackElement1.textContent = `failed to fetch feedback iteams . error message: ${error.message}`
+  });
+  
+  
