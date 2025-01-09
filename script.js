@@ -85,11 +85,11 @@ formEl.addEventListener('submit', submitHandler);
       const feedbackIteamsHTML = `
       <li class="feedback">
           <button class="upvote">
-              <i class="fa-solid fa-caret-up upvote__icon"></i>
-              <span class="upvote__count">${feedbackIteams.upvotecount}</span>
+              <i class="fa-solid fa-caret-up upvote__icon">${feedbackIteams.upvoteCount}</i>
+              <span class="upvote__count"></span>
           </button>
           <section class="feedback__badge"> 
-              <p class="feedback__letter">${feedbackIteams.badgleeter}</p> <!-- Display the first letter of the company -->
+              <p class="feedback__letter">${feedbackIteams.badgeLetter}</p> <!-- Display the first letter of the company -->
           </section>
           <div class="feedback__content">
               <p class="feedback__company">${feedbackIteams.company}</p> <!-- Display the company name -->
